@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-const baseUrl = "http://localhost:3001/users";
+const baseUrl = "https://backend-crud-mern.herokuapp.com/users";
 
 const initialState = {
   user: { name: "", email: "" },

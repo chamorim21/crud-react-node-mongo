@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import './Table.css';
 
-const baseUrl = "http://localhost:3001/users";
+const baseUrl = "https://backend-crud-mern.herokuapp.com/users";
 
 export default class Table extends Component {
   // eslint-disable-next-line no-useless-constructor

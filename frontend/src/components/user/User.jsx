@@ -10,7 +10,7 @@ const headerProps = {
   subtitle: "Cadastro de usuários: incluir, listar, alterar e excluir.",
 };
 
-const baseUrl = "http://localhost:3001/users";
+const baseUrl = "https://backend-crud-mern.herokuapp.com/users";
 
 const initialState = {
   user: { name: "", email: "" },
