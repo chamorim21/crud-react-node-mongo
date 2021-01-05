@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
-import './Table.css';
+import "./Table.css";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const baseUrl = "https://backend-crud-mern.herokuapp.com/users";
 
@@ -25,6 +28,9 @@ export default class Table extends Component {
       const list = this.getUpdatedList(user, false);
       this.props.handleParent({ list });
     });
+
+    const notify = () => toast.error("Cadastro excluído com sucesso.");
+    notify();
   }
 
   renderRows() {
@@ -44,6 +50,7 @@ export default class Table extends Component {
               className="btn btn-danger ml-2"
               onClick={(e) => this.remove(user)}
             >
+              <ToastContainer />
               <i className="fa fa-trash"></i>
             </button>
           </td>

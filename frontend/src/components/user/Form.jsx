@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const baseUrl = "https://backend-crud-mern.herokuapp.com/users";
 
 const initialState = {
@@ -26,7 +29,7 @@ export default class Form extends Component {
 
   save() {
     const user = this.props.state.user;
-    console.log(user)
+    console.log(user);
     if (user.email === "" || user.name === "") return;
 
     const method = user._id ? "put" : "post";
@@ -36,6 +39,9 @@ export default class Form extends Component {
       const list = this.getUpdatedList(resp.data);
       this.props.handleParent({ user: initialState.user, list });
     });
+
+    const notify = () => toast.success("Cadastro realizado com sucesso.");
+    notify();
   }
 
   updateField(event) {
@@ -82,6 +88,7 @@ export default class Form extends Component {
             <button className="btn btn-success" onClick={(e) => this.save(e)}>
               Salvar
             </button>
+            <ToastContainer />
             <button
               className="btn btn-primary ml-2"
               onClick={(e) => this.clear(e)}
