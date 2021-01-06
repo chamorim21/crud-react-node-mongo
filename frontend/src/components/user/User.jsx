@@ -12,8 +12,13 @@ export default (props) => {
 
   useEffect(() => {
     Axios().then((resp) => {
-      console.log(resp.data);
-      setList(resp.data);
+      const updatedList = resp.data.sort((a, b) => {
+        const dateA = Date.parse(a.createdAt);
+        const dateB = Date.parse(b.createdAt);
+
+        return dateB - dateA;
+      });
+      setList(updatedList);
     });
   }, []);
 

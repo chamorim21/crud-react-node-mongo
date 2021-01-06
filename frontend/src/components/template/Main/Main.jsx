@@ -8,7 +8,7 @@ export default (props) => {
     <React.Fragment>
       <Header {...props} />
       <main className="content container-fluid">
-        <div className="p-3 mt-5 main">
+        <div className="p-3 mt-3 main">
           {props.children}
         </div>
       </main>

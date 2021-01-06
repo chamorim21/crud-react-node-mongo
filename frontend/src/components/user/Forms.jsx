@@ -15,12 +15,13 @@ export default (props) => {
       const list = getUpdatedList(resp.data);
       props.handleParent.setUser(initialState.user);
       props.handleParent.setList(list);
-      notify();
     });
+    if (method === "post") notify("Cadastro realizado com sucesso", "success");
+    if (method === "put") notify("Cadastro alterado com sucesso", "warning");
   };
 
-  const notify = () =>
-    toast.success("Cadastro realizado com sucesso.", {
+  const notify = (text, colorNotify) =>
+    toast[colorNotify](text, {
       position: "top-right",
       autoClose: 2500,
       hideProgressBar: true,

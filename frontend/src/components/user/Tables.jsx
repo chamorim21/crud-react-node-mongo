@@ -1,7 +1,7 @@
 import React from "react";
 import Axios from "../../plugins/axios";
 import { initialState } from "./constant";
-import { Table, Button } from "react-bootstrap";
+import { Table, Button, ToastHeader } from "react-bootstrap";
 import { formatDistance } from "date-fns";
 import pt from "date-fns/locale/pt";
 import { ToastContainer, toast, Slide } from "react-toastify";
@@ -47,9 +47,9 @@ export default (props) => {
     return props.state.list.map((user) => {
       return (
         <tr key={user._id}>
-          <td>{user.name}</td>
-          <td>{user.email}</td>
-          <td>
+          <td style={{ width: "25%" }}>{user.name}</td>
+          <td style={{ width: "40%" }}>{user.email}</td>
+          <td style={{ width: "13%" }}>
             <Button variant="warning" onClick={() => load(user)}>
               <i className="fa fa-pencil"></i>
             </Button>
@@ -61,7 +61,7 @@ export default (props) => {
               <i className="fa fa-trash"></i>
             </Button>
           </td>
-          <td>
+          <td style={{ width: "22%" }}>
             há{" "}
             {formatDistance(Date.parse(user.createdAt), Date.now(), {
               locale: pt,
@@ -73,14 +73,14 @@ export default (props) => {
   };
 
   return (
-    <Table striped bordered hover className="mt-3">
+    <Table striped bordered className="mt-3">
       <ToastContainer />
       <thead>
         <tr>
-          <th className="w-25 mw-25">Nome</th>
-          <th className="w-50 mw-50">E-mail</th>
-          <th className="w-12 mw-12">Ações</th>
-          <th className="w-13 mw-13">Criado</th>
+          <th style={{ width: "25%" }}>Nome</th>
+          <th style={{ width: "40%" }}>E-mail</th>
+          <th style={{ width: "13%" }}>Ações</th>
+          <th style={{ width: "22%" }}>Criado</th>
         </tr>
       </thead>
       <tbody>{renderRows()}</tbody>

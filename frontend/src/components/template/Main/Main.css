@@ -12,6 +12,10 @@ main .main {
   }
 }
 
+h3 {
+  align-self: center;
+}
+
 li a {
   padding-right: 10px;
 }
