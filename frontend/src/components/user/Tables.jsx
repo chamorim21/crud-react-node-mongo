@@ -2,6 +2,8 @@ import React from "react";
 import Axios from "../../plugins/axios";
 import { initialState } from "./constant";
 import { Table, Button } from "react-bootstrap";
+import { formatDistance } from "date-fns";
+import pt from "date-fns/locale/pt";
 import { ToastContainer, toast, Slide } from "react-toastify";
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -45,9 +47,9 @@ export default (props) => {
     return props.state.list.map((user) => {
       return (
         <tr key={user._id}>
-          <td className="w-25 mw-25">{user.name}</td>
-          <td className="w-50 mw-50">{user.email}</td>
-          <td className="w-25 mw-25">
+          <td>{user.name}</td>
+          <td>{user.email}</td>
+          <td>
             <Button variant="warning" onClick={() => load(user)}>
               <i className="fa fa-pencil"></i>
             </Button>
@@ -58,6 +60,12 @@ export default (props) => {
             >
               <i className="fa fa-trash"></i>
             </Button>
+          </td>
+          <td>
+            há{" "}
+            {formatDistance(Date.parse(user.createdAt), Date.now(), {
+              locale: pt,
+            })}
           </td>
         </tr>
       );
@@ -71,7 +79,8 @@ export default (props) => {
         <tr>
           <th className="w-25 mw-25">Nome</th>
           <th className="w-50 mw-50">E-mail</th>
-          <th className="w-25 mw-25">Ações</th>
+          <th className="w-12 mw-12">Ações</th>
+          <th className="w-13 mw-13">Criado</th>
         </tr>
       </thead>
       <tbody>{renderRows()}</tbody>
