@@ -3,31 +3,16 @@ import Axios from "../../plugins/axios";
 import { initialState } from "./constant";
 import { Table, Button } from "react-bootstrap";
 import { formatDistance } from "date-fns";
+import { clear, getUpdatedList, notify } from "./common";
 import pt from "date-fns/locale/pt";
 import { ToastContainer, toast, Slide } from "react-toastify";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (props) => {
-  const notify = () =>
-    toast.error("Cadastro excluído com sucesso.", {
-      position: "top-right",
-      autoClose: 2500,
-      hideProgressBar: true,
-      closeOnClick: false,
-      pauseOnHover: false,
-      draggable: false,
-      progress: undefined,
-      transition: Slide,
-    });
-
-  const clear = () => {
-    props.handleParent.setUser(initialState.user);
-  };
-
-  const getUpdatedList = (user, add = true) => {
-    const list = props.state.list.filter((u) => u._id !== user._id);
-    if (add) list.unshift(user);
-    return list;
+  const getDataInWords = (dateOlder, language) => {
+    const older = Date.parse(dateOlder);
+    const dateNow = new Date();
+    return formatDistance(older, dateNow, { locale: language });
   };
 
   const load = (user) => {
@@ -36,10 +21,10 @@ export default (props) => {
 
   const remove = (user) => {
     Axios.delete(`/${user._id}`).then((_) => {
-      const list = getUpdatedList(user, false);
+      const list = getUpdatedList(user, props, false);
       props.handleParent.setList(list);
-      clear();
-      notify();
+      clear(props, initialState);
+      notify("Cadastro excluído com sucesso", "error", toast, Slide);
     });
   };
 
@@ -62,10 +47,7 @@ export default (props) => {
             </Button>
           </td>
           <td style={{ width: "22%" }}>
-            há{" "}
-            {formatDistance(Date.parse(user.createdAt), Date.now(), {
-              locale: pt,
-            })}
+            há {getDataInWords(user.createdAt, pt)}
           </td>
         </tr>
       );
@@ -73,14 +55,14 @@ export default (props) => {
   };
 
   return (
-    <Table striped bordered className="mt-3">
+    <Table striped bordered responsive className="mt-3">
       <ToastContainer />
       <thead>
         <tr>
           <th style={{ width: "25%" }}>Nome</th>
           <th style={{ width: "40%" }}>E-mail</th>
-          <th style={{ width: "13%" }}>Ações</th>
-          <th style={{ width: "22%" }}>Criado</th>
+          <th style={{ width: "10%" }}>Ações</th>
+          <th style={{ width: "25%" }}>Criado</th>
         </tr>
       </thead>
       <tbody>{renderRows()}</tbody>

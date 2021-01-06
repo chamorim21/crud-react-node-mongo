@@ -1,45 +1,29 @@
 import React from "react";
 import Axios from "../../plugins/axios";
 import { initialState } from "./constant";
+import { clear, getUpdatedList, notify } from "./common";
 import { ToastContainer, toast, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (props) => {
+  
   const save = () => {
     const user = props.state.user;
     if (!user.name || !user.email) return;
+
     const method = user._id ? "put" : "post";
     const url = user._id ? `/${user._id}` : "";
     Axios[method](url, user).then((resp) => {
-      const list = getUpdatedList(resp.data);
+      const list = getUpdatedList(resp.data, props);
       props.handleParent.setUser(initialState.user);
       props.handleParent.setList(list);
     });
-    if (method === "post") notify("Cadastro realizado com sucesso", "success");
-    if (method === "put") notify("Cadastro alterado com sucesso", "warning");
-  };
 
-  const notify = (text, colorNotify) =>
-    toast[colorNotify](text, {
-      position: "top-right",
-      autoClose: 2500,
-      hideProgressBar: true,
-      closeOnClick: false,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      transition: Slide,
-    });
-
-  const clear = () => {
-    props.handleParent.setUser(initialState.user);
-  };
-
-  const getUpdatedList = (user, add = true) => {
-    const list = props.state.list.filter((u) => u._id !== user._id);
-    if (add) list.unshift(user);
-    return list;
+    if (method === "post")
+      notify("Cadastro realizado com sucesso", "success", toast, Slide);
+    if (method === "put")
+      notify("Cadastro alterado com sucesso", "warning", toast, Slide);
   };
 
   const updateField = (event) => {
