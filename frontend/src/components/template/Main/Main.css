@@ -12,12 +12,10 @@ main .main {
   }
 }
 
-h3 {
-  align-self: center;
-}
 li a {
   padding-right: 10px;
 }
+
 .display-4 {
   align-self: center;
 }

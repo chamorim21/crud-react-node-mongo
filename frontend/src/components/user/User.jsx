@@ -12,9 +12,10 @@ export default (props) => {
 
   useEffect(() => {
     Axios().then((resp) => {
+      console.log(resp.data);
       setList(resp.data);
     });
-  });
+  }, []);
 
   return (
     <Main {...headerProps}>
