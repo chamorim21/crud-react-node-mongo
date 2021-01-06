@@ -3,7 +3,7 @@ import Axios from "../../plugins/axios";
 import Main from "../template/Main/Main";
 import Forms from "./Forms";
 import Tables from "./Tables";
-import { headerProps, initialState } from "./constant";
+import { headerProps } from "./constant";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (props) => {
