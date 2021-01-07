@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Axios from "../../plugins/axios";
 import { initialState } from "./constant";
 import { clear, getUpdatedList, notify } from "./common";
