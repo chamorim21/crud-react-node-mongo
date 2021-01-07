@@ -3,19 +3,17 @@ export const getUpdatedList = (user, props, add = true) => {
   if (add) list.unshift(user);
   return list;
 };
-
 export const notify = (text, colorNotify, toast, Slide) =>
-  toast[colorNotify](text, {
-    position: "top-right",
-    autoClose: 2500,
-    hideProgressBar: true,
-    closeOnClick: false,
-    pauseOnHover: false,
-    draggable: true,
-    progress: undefined,
-    transition: Slide,
-  });
-
+toast[colorNotify](text, {
+  position: "top-right",
+  autoClose: 1000,
+  hideProgressBar: true,
+  closeOnClick: true,
+  pauseOnHover: false,
+  draggable: false,
+  progress: undefined,
+  transition: Slide,
+});
 export const clear = (props, initialState) => {
   props.handleParent.setUser(initialState.user);
 };
